@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JTMK - Mobile Web App</title>
+
+  <!-- jQuery Mobile -->
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      padding: 10px 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      flex-wrap: nowrap;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    header span {
+      font-weight: bold;
+      font-size: 16px;
+      color: black;
+    }
+
+    header nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    header nav a {
+      text-decoration: none;
+      color: green;
+      font-weight: bold;
+    }
+
+    /* Sidebar */
+    .social-sidebar {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+      background-color:#7FFFD4;
+      padding: 5px;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .social-sidebar a img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 6px;
+      padding: 5px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background-color:#9FE2BF;
+      color: black;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .hero h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .custom-button {
+      background-color: #94B4C1;
+      color: black;
+      padding: 20px 100px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 20px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-button:hover {
+      background-color: #F5EEDD;
+      color: black;
+    }
+
+    .custom-footer {
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+      background: #BEE4D0;
+      color: black;
+    }
+
+    .page-container {
+      min-height: calc(100vh - 100px - 60px);
+      padding: 20px;
+      margin-left: 70px;
+      margin-top: 40px;
+      box-sizing: border-box;
+    }
+
+    [data-role="page"] {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+
+    /* Responsive Header on Mobile */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      header nav {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .hero h2 {
+        font-size: 24px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .custom-button {
+        padding: 15px 50px;
+        font-size: 14px;
+      }
+
+      .page-container {
+        margin-left: 70px;
+        margin-top: 60px;
+      }
+    }
+
+    /* About + Projects Card Style */
+    .about-us-container, .projects-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .profile-card, .project-card {
+      display: flex;
+      align-items: flex-start;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .profile-card img, .project-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .profile-details, .project-details {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .profile-details h3, .project-details h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      white-space: normal;
+    }
+
+    .profile-details p, .project-details p {
+      margin: 5px 0 0 0;
+      font-size: 14px;
+      color: #555;
+      white-space: normal;
+    }
+
+    .project-details a {
+      color: #007bff;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .project-details a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .profile-card, .project-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .profile-card img, .project-card img {
+        margin-bottom: 10px;
+      }
+
+      .profile-details, .project-details {
+        min-width: unset;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Social Sidebar -->
+  <div class="social-sidebar">
+    <a href="https://www.linkedin.com/"><img src="linkedIn.png" alt="LinkedIn"></a>
+    <a href="https://github.com/"><img src="github.png" alt="GitHub"></a>
+    <a href="https://x.com/"><img src="twitter.png" alt="Twitter"></a>
+    <a href="https://www.youtube.com/"><img src="youtube.jpg" alt="YouTube"></a>
+    <a href="https://www.instagram.com/"><img src="instagram.jpg" alt="Instagram"></a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <img src="jtmk.jpg" alt="Logo">
+      <span>JABATAN TEKNOLOGI MAKLUMAT & KOMUNIKASI</span>
+    </div>
+    <nav>
+      <a href="#home">HOME</a>
+      <a href="#about">ABOUT</a>
+      <a href="#projects">PROJECTS</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </header>
+
+  <!-- HOME Page -->
+  <div data-role="page" id="home">
+    <div class="page-container">
+      <div class="hero">
+        <h2>HEY, MY NAME IS JTMK</h2>
+        <p>JTMK is the Department of Information and Communication Technology (JTMK) offering DDT courses at Seberang Perai Polytechnic (PSP).</p>
+        <a href="#projects" class="custom-button">PROJECTS</a>
+      </div>
+    </div>
+    <div class="custom-footer">COPYRIGHT © DDT4A S2 2024/2025. ALL RIGHTS RESERVED.</div>
+  </div>
+
+  <!-- ABOUT Page -->
+  <div data-role="page" id="about">
+    <div class="page-container">
+      <h2 style="text-align: center;">About Us</h2>
+      <div class="about-us-container">
+        <div class="profile-card">
+          <img src="hod.jpg" alt="Nur Izzah Yasmin">
+          <div class="profile-details">
+            <h3>NUR IZZAH YASMIN</h3>
+            <p>Head of Department<br>Phone: 010-2949066</p>
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <img src="software.jpg" alt="Norsyafina Sahar">
+          <div class="profile-details">
+            <h3>NORSYAFINA SAHAR</h3>
+            <p>Program Head (Software)<br>Phone: 013-7676485</p>
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <img src="network.jpg" alt="Aimi Dalina">
+          <div class="profile-details">
+            <h3>AIMI DALINA</h3>
+            <p>Program Head (Network)<br>Phone: 011-23710698</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-footer">COPYRIGHT © DDT4A S2 2024/2025. ALL RIGHTS RESERVED.</div>
+  </div>
+
+  <!-- PROJECTS Page -->
+  <div data-role="page" id="projects">
+    <div class="page-container">
+      <h2 style="text-align: center;">Our Projects</h2>
+      <div class="projects-container">
+        <div class="project-card">
+          <img src="project1.png" alt="Charity Fundraising">
+          <div class="project-details">
+            <h3>CHARITY FUNDRAISING</h3>
+            <p><a href="REPORT PROJECT WDT.pdf" target="_blank">📄 View Report</a></p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <img src="project2.png" alt="Mobile Framework">
+          <div class="project-details">
+            <h3>MOBILE FRAMEWORK CHARITY FUNDRAISING</h3>
+            <p><a href="reportProject2.pdf" target="_blank">📄 View Report</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-footer">COPYRIGHT © DDT4A S2 2024/2025. ALL RIGHTS RESERVED.</div>
+  </div>
+
+  <!-- CONTACT Page -->
+  <div data-role="page" id="contact">
+    <div class="page-container">
+      <h2 style="text-align: center;">Contact Us</h2>
+      <ul data-role="listview" data-inset="true">
+        <li><a href="tel:0102949066">📞 Call Nur Izzah</a></li>
+        <li><a href="mailto:niybms05@gmail.com">✉️ Email Nur Izzah</a></li>
+        <li><a href="https://wa.me/60102949066" target="_blank">💬 WhatsApp Nur Izzah</a></li>
+        <li><a href="tel:0137676485">📞 Call Norsyafina</a></li>
+        <li><a href="mailto:norsyafinasahar@gmail.com">✉️ Email Norsyafina</a></li>
+        <li><a href="https://wa.me/60137676485" target="_blank">💬 WhatsApp Norsyafina</a></li>
+        <li><a href="tel:01123710698">📞 Call Aimi Dalina</a></li>
+        <li><a href="mailto:aimidalina2305@gmail.com">✉️ Email Aimi Dalina</a></li>
+        <li><a href="https://wa.me/601123710698" target="_blank">💬 WhatsApp Aimi Dalina</a></li>
+      </ul>
+    </div>
+    <div class="custom-footer">COPYRIGHT © DDT4A S2 2024/2025. ALL RIGHTS RESERVED.</div>
+  </div>
+
+</body>
+</html>
+
+
+
+
